@@ -37,7 +37,7 @@ class Product extends Model
             'title'                 => $request->title,
             'supplier_id'           => $request->supplier_id,
             'product_category_id'   => $request->product_category,
-            'description'           => $request->deskripsi,
+            'description'           => $request->description,
             'price'                 => $request->price,
             'stock'                 => $request->stock,
         ]);

@@ -37,7 +37,7 @@
 
                             <div class="form-group mb-3">
                                 <label for="product_category_id">Category Product</label>
-                                <select class="form-control" name="product_category" id="product_category_id">
+                                <select class="form-control" name="product_category_id" id="product_category_id">
                                     <option value="">-- Select Category Product --</option>
                                     @foreach ($data['categories'] as $category)
                                     <option value="{{ $category->id }}">{{ $category->product_category_name }}</option>
@@ -53,7 +53,7 @@
 
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">DESCRIPTION</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="deskripsi" rows="5"
+                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5"
                                         placeholder="Masukan Description Product"></textarea>
                             </div>
 

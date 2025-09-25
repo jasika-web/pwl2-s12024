@@ -64,8 +64,8 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'image'                 => 'required|image|mimes:jpeg,jpg,png,webp|max:2048',
             'title'                 => 'required|min:5',
-            'product_category'      => 'required|integer',
-            'deskripsi'             => 'required|min:10',
+            'product_category_id'      => 'required|integer',
+            'description'           => 'required|min:10',
             'price'                 => 'required|numeric',
             'stock'                 => 'required|numeric',
         ]);
