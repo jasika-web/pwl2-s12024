@@ -34,12 +34,39 @@ class Product extends Model
     {
         return self::create([
             'image'                 => $image->hashName(),
-            'title'                 => $request->title,
+            'judul'                 => $request->title,
             'supplier_id'           => $request->supplier_id,
             'product_category_id'   => $request->product_category,
             'description'           => $request->description,
             'price'                 => $request->price,
             'stock'                 => $request->stock,
         ]);
+    }
+
+    //Metode untuk edit data
+    public static function updateProduct($id, $request, $image = null)
+    {
+        $product = self::find($id);
+
+        if ($product) {
+            $data = [
+                'title'                 => $request['judul'],
+                'supplier_id'           => $request['supplier_id'],
+                'product_category_id'   => $request['product_category_id'],
+                'description'           => $request['description'],
+                'price'                 => $request['price'],
+                'stock'                 => $request['stock']
+            ];
+
+            if (!empty($image)) {
+                $data['image'] = $image;
+            }
+
+            $product->update($data);
+            return $product;
+            
+        }else{
+            return "tidak ada data yang diupdate";
+        }
     }
 }

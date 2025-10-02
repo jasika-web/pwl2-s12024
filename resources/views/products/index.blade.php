@@ -43,12 +43,14 @@
                                     <td>{{ "Rp " . number_format($product->price,2,',','.') }}</td>
                                     <td>{{ $product->stock }}</td>
                                     <td class="text-center">
-                                        <form onsubmit="return confirm('Apakah anda yakin ?');" action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="delete-form d-inline">
                                             <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-dark">SHOW</a>
                                             <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                            <button type="submit" class="btn btn-sm btn-danger" id="btn-delete" data-title="{{ $product->title }}">
+                                                HAPUS
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
@@ -90,6 +92,33 @@
             @endif
 
     </script>
+
+    <script>
+    // Konfirmasi hapus dengan SweetAlert + nama produk
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let title = form.querySelector('#btn-delete').getAttribute('data-title'); // ambil nama produk
+
+            Swal.fire({
+                title: 'Yakin hapus "' + title + '" ?',
+                text: "Data yang dihapus tidak bisa dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#0aee30ff',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        });
+    });
+</script>
+
     
 </body>
 </html>
