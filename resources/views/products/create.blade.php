@@ -36,10 +36,10 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="product_category_id">Category Product</label>
-                                <select class="form-control" name="product_category_id" id="product_category_id">
-                                    <option value="">-- Select Category Product --</option>
-                                    @foreach ($data['categories'] as $category)
+                                <label for="product_category_id">Product Category</label>
+                                <select class="form-control" id="product_category_id" name="product_category_id">
+                                    <option value="">--Select Product Category--</option>
+                                    @foreach($data['categories'] as $category)
                                     <option value="{{ $category->id }}">{{ $category->product_category_name }}</option>
                                     @endforeach
                                 </select>

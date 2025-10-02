@@ -34,9 +34,9 @@ class Product extends Model
     {
         return self::create([
             'image'                 => $image->hashName(),
-            'judul'                 => $request->title,
+            'title'                 => $request->title,
             'supplier_id'           => $request->supplier_id,
-            'product_category_id'   => $request->product_category,
+            'product_category_id'   => $request->product_category_id,
             'description'           => $request->description,
             'price'                 => $request->price,
             'stock'                 => $request->stock,
