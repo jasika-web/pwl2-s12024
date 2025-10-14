@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Category Product</title>
+    <title>Edit Supplier</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
     <style>
@@ -77,26 +76,40 @@
 <body>
 
     <div class="container mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h4>Edit Category Product</h4>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h4>Edit Supplier</h4>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
                         
-                        <form action="{{ route('categories.update', $category->id) }}" method="POST">
+                        <form action="{{ route('suppliers.update', $supplier->id) }}" method="POST">
                             @csrf
                             @method('PUT')
 
                             <div class="form-group mb-3">
-                                <label class="font-weight-bold">Category Name</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control @error('product_category_name') is-invalid @enderror" 
-                                    name="product_category_name"
-                                    value="{{ old('product_category_name', $category->product_category_name) }}" 
-                                    placeholder="Enter Category Name">
+                                <label class="font-weight-bold">Supplier Name</label>
+                                <input type="text" 
+                                       class="form-control @error('supplier_name') is-invalid @enderror" 
+                                       name="supplier_name"
+                                       value="{{ old('supplier_name', $supplier->supplier_name) }}"
+                                       placeholder="Masukkan nama supplier">
 
-                                @error('product_category_name')
+                                @error('supplier_name')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="font-weight-bold">PIC Supplier</label>
+                                <input type="text" 
+                                       class="form-control @error('pic_supplier') is-invalid @enderror" 
+                                       name="pic_supplier"
+                                       value="{{ old('pic_supplier', $supplier->pic_supplier) }}"
+                                       placeholder="Masukkan PIC supplier">
+
+                                @error('pic_supplier')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>
@@ -114,5 +127,6 @@
     </div>
      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

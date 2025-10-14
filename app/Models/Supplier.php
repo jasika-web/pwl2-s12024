@@ -10,7 +10,7 @@ class Supplier extends Model
     protected $fillable = ['supplier_name', 'pic_supplier'];
 
     public function get_category_product(): Supplier{
-        //get all category supplier
+        //get all category suppliers
         $sql = $this->select("supplier");
 
         return $sql;

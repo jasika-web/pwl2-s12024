@@ -101,7 +101,7 @@ class SupplierController extends Controller
             'pic_supplier' => 'required|string|max:100',
         ]);
 
-        // Update data supplier
+        // Update data suppliers
         $supplier = Supplier::findOrFail($id);
         $supplier->update([
             'supplier_name' => $request->supplier_name,

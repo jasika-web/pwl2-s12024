@@ -36,6 +36,15 @@
             text-align: center;
             vertical-align: middle;
         }
+        .nav-buttons a {
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-buttons a:hover {
+            transform: translateY(-3px);
+        }
+
         h2 {
             color: #fff;
             font-weight: 700;
@@ -56,11 +65,11 @@
                 <hr>
 
                 <!-- ✅ Navigasi Utama -->
-                <div class="text-center mb-4">
-                    <a href="{{ url('/suppliers') }}" class="btn btn-outline-light me-2">Supplier</a>
-                    <a href="{{ url('/transactions') }}" class="btn btn-outline-light me-2">Transaksi</a>
-                    <a href="{{ url('/products') }}" class="btn btn-outline-light me-2">Product</a>
-                    <a href="{{ url('/categories') }}" class="btn btn-outline-light">Category Products</a>
+                <div class="nav-buttons d-flex justify-content-center gap-3 mb-4">
+                    <a href="{{ route('suppliers.index') }}" class="btn btn-outline-light px-4 active">Supplier</a>
+                    <a href="{{ route('transactions.index') }}" class="btn btn-outline-light px-4">Transaksi</a>
+                    <a href="{{ route('products.index') }}" class="btn btn-outline-light px-4">Product</a>
+                    <a href="{{ route('categories.index') }}" class="btn btn-outline-light px-4">Category Products</a>
                 </div>
 
                 <div class="card border-0 shadow-sm rounded p-3">
