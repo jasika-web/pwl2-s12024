@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Show Products</title>
+    <title>Edit Category Product</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
     <style>
         body {
             min-height: 100vh;
@@ -13,7 +14,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        h2 {
+        h4 {
             color: #fff;
             font-weight: 600;
             margin-bottom: 25px;
@@ -36,20 +37,16 @@
             color: #0a2540;
         }
 
-        .form-control, .form-select {
+        .form-control {
             border-radius: 10px;
             border: 1px solid #ced4da;
             padding: 10px 12px;
             transition: all 0.2s ease;
         }
 
-        .form-control:focus, .form-select:focus {
+        .form-control:focus {
             border-color: #1e88e5;
             box-shadow: 0 0 0 0.2rem rgba(30, 136, 229, 0.25);
-        }
-
-        textarea.form-control {
-            resize: none;
         }
 
         .btn-primary {
@@ -81,36 +78,41 @@
 
     <div class="container mt-5 mb-5">
         <div class="row">
-            <h2>Show Product</h2>
-            <div class="col-md-4">
+            <div class="col-md-8 offset-md-2">
+                <h4>Edit Category Product</h4>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <img src="{{ asset('/storage/images/'.$product->image) }}" class="rounded" style="width: 100%">
-                    </div>
-                </div>
-            </div>
-                <div class="col-md-8">
-                    <div class="card border-0 shadow-sm rounded">
-                        <div class="card-body">
-                            <h3>{{ $product->title }}</h3>
-                            <hr/>
-                            <p>Category : {{ $product->product_category_name ?? '-' }}</p>
-                            <hr/>
-                            <p>Supplier : {{ $product->supplier_name ?? '-' }}</p>
-                            <hr/>
-                            <p>{{ "Rp " . number_format($product->price, 2, ',', '.') }}</p>
-                            <code>
-                                <p>{{ $product->description }}</p>
-                            </code>
-                            <hr/>
-                            <p>Stock : {{ $product->stock }}</p>
-                        </div>
+                        
+                        <form action="{{ route('categories.update', $category->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="form-group mb-3">
+                                <label class="font-weight-bold">Category Name</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control @error('product_category_name') is-invalid @enderror" 
+                                    name="product_category_name"
+                                    value="{{ old('product_category_name', $category->product_category_name) }}" 
+                                    placeholder="Enter Category Name">
+
+                                @error('product_category_name')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <button type="submit" class="btn btn-md btn-primary me-3">UPDATE</button>
+                            <button type="reset" class="btn btn-md btn-warning">RESET</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
      
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

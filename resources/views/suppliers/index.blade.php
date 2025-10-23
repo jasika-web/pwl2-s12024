@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Products</title>
+    <title>Data Suppliers</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
     <style>
@@ -71,21 +71,9 @@
             margin-bottom: 25px;
         }
 
-        table.table {
-            border-collapse: separate;
-            border-spacing: 0;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
         table.table thead {
             background-color: #0d6efd;
             color: white;
-            text-transform: uppercase;
-        }
-
-        table.table tbody tr {
-            transition: all 0.2s ease-in-out;
         }
 
         table.table tbody tr:hover {
@@ -93,8 +81,8 @@
         }
 
         table th, table td {
-            vertical-align: middle;
             text-align: center;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -103,80 +91,78 @@
     <!-- ✅ SIDEBAR -->
     <div class="sidebar">
         <h3>Dashboard</h3>
-        <a href="{{ route('suppliers.index') }}">Supplier</a>
+        <a href="{{ route('suppliers.index') }}" class="active">Supplier</a>
         <a href="{{ route('transactions.index') }}">Transaksi</a>
-        <a href="{{ route('products.index') }}" class="active">Product</a>
+        <a href="{{ route('products.index') }}">Product</a>
         <a href="{{ route('categories.index') }}">Category Products</a>
-
+        
         <form action="{{ route('logout') }}" method="POST" class="w-100 mt-4">
         @csrf
         <button type="submit" class="btn btn-danger w-100">Logout</button>
     </form>
     </div>
 
- 
     <!-- ✅ MAIN CONTENT -->
-    <div class="main-content">
-        <h2 class="text-center my-4">Dashboard Product</h2>
+    <div class="main-content my-4">
+        <h2 class="text-center">Dashboard Supplier</h2>
         <hr>
 
         <div class="card border-0 shadow-sm rounded p-3">
             <div class="card-body">
-                <a href="{{ route('products.create') }}" class="btn btn-md btn-success mb-3">+ ADD PRODUCT</a>
+                <a href="{{ route('suppliers.create') }}" class="btn btn-md btn-success mb-3">+ ADD SUPPLIER</a>
+
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead>
                             <tr>
-                                <th>IMAGE</th>
-                                <th>TITLE</th>
-                                <th>SUPPLIER</th>
-                                <th>CATEGORY</th>
-                                <th>PRICE</th>
-                                <th>STOCK</th>
-                                <th>ACTIONS</th>
+                                <th>No</th>
+                                <th>Supplier Name</th>
+                                <th>PIC Supplier</th>
+                                <th style="width: 20%">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($products as $product)
+                            @forelse ($suppliers as $supplier)
                             <tr>
-                                <td><img src="{{ asset('/storage/images/'.$product->image) }}" class="rounded shadow-sm" style="width: 100px;"></td>
-                                <td>{{ $product->title }}</td>
-                                <td>{{ $product->supplier_name }}</td>
-                                <td>{{ $product->product_category_name }}</td>
-                                <td>{{ "Rp " . number_format($product->price,2,',','.') }}</td>
-                                <td>{{ $product->stock }}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $supplier->supplier_name }}</td>
+                                <td>{{ $supplier->pic_supplier }}</td>
                                 <td>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline delete-form">
-                                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-secondary">SHOW</a>
-                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                    <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" class="d-inline delete-form">
+                                        <a href="{{ route('suppliers.show', $supplier->id) }}" class="btn btn-sm btn-secondary">SHOW</a>
+                                        <a href="{{ route('suppliers.edit', $supplier->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" id="btn-delete" data-title="{{ $product->title }}">HAPUS</button>
+                                        <button type="submit" class="btn btn-sm btn-danger" id="btn-delete" data-name="{{ $supplier->supplier_name }}">
+                                            HAPUS
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
                             @empty
-                                <tr>
-                                    <td colspan="7" class="text-center text-danger fw-bold py-3">
-                                        Data Products belum Tersedia.
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="6" class="text-center text-danger fw-bold py-3">
+                                    Data Supplier belum tersedia.
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
+
                 <div class="d-flex justify-content-center mt-3">
-                    {{ $products->links() }}
+                    {{ $suppliers->links() }}
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- JS -->
+    <!-- ✅ SCRIPT -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        // ✅ SweetAlert pesan sukses/gagal
         @if(session('success'))
             Swal.fire({
                 icon: "success",
@@ -195,12 +181,13 @@
             });
         @endif
 
+        // ✅ Konfirmasi hapus supplier
         document.querySelectorAll('.delete-form').forEach(form => {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                let title = form.querySelector('#btn-delete').getAttribute('data-title');
+                let name = form.querySelector('#btn-delete').getAttribute('data-name');
                 Swal.fire({
-                    title: 'Yakin hapus "' + title + '" ?',
+                    title: 'Yakin hapus "' + name + '" ?',
                     text: "Data yang dihapus tidak bisa dikembalikan!",
                     icon: 'warning',
                     showCancelButton: true,
@@ -209,10 +196,13 @@
                     confirmButtonText: 'Ya, Hapus!',
                     cancelButtonText: 'Batal'
                 }).then((result) => {
-                    if (result.isConfirmed) form.submit();
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
                 });
             });
         });
     </script>
+
 </body>
 </html>

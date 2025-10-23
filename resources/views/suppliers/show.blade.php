@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Show Products</title>
+    <title>Show Supplier</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <style>
         body {
@@ -17,6 +17,7 @@
             color: #fff;
             font-weight: 600;
             margin-bottom: 25px;
+            margin-left: 220px;
         }
 
         .card {
@@ -34,22 +35,6 @@
         label {
             font-weight: 600;
             color: #0a2540;
-        }
-
-        .form-control, .form-select {
-            border-radius: 10px;
-            border: 1px solid #ced4da;
-            padding: 10px 12px;
-            transition: all 0.2s ease;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: #1e88e5;
-            box-shadow: 0 0 0 0.2rem rgba(30, 136, 229, 0.25);
-        }
-
-        textarea.form-control {
-            resize: none;
         }
 
         .btn-primary {
@@ -75,42 +60,30 @@
             background-color: #f9a825;
         }
     </style>
-
 </head>
 <body>
 
     <div class="container mt-5 mb-5">
         <div class="row">
-            <h2>Show Product</h2>
-            <div class="col-md-4">
+            <h2>Show Supplier</h2>
+            <div class="col-md-8 offset-md-2">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <img src="{{ asset('/storage/images/'.$product->image) }}" class="rounded" style="width: 100%">
-                    </div>
-                </div>
-            </div>
-                <div class="col-md-8">
-                    <div class="card border-0 shadow-sm rounded">
-                        <div class="card-body">
-                            <h3>{{ $product->title }}</h3>
-                            <hr/>
-                            <p>Category : {{ $product->product_category_name ?? '-' }}</p>
-                            <hr/>
-                            <p>Supplier : {{ $product->supplier_name ?? '-' }}</p>
-                            <hr/>
-                            <p>{{ "Rp " . number_format($product->price, 2, ',', '.') }}</p>
-                            <code>
-                                <p>{{ $product->description }}</p>
-                            </code>
-                            <hr/>
-                            <p>Stock : {{ $product->stock }}</p>
+                        <h3 class="mb-3">{{ $supplier->supplier_name }}</h3>
+                        <hr/>
+                        <p><strong>PIC Supplier :</strong> {{ $supplier->pic_supplier }}</p>
+                        <hr/>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ route('suppliers.index') }}" class="btn btn-primary">Kembali</a>
+                            <a href="{{ route('suppliers.edit', $supplier->id) }}" class="btn btn-warning">Edit Supplier</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-     
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
