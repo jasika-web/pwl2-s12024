@@ -95,10 +95,15 @@
         <a href="{{ route('transactions.index') }}">Transaksi</a>
         <a href="{{ route('products.index') }}">Product</a>
         <a href="{{ route('categories.index') }}">Category Products</a>
+        
+        <form action="{{ route('logout') }}" method="POST" class="w-100 mt-4">
+        @csrf
+        <button type="submit" class="btn btn-danger w-100">Logout</button>
+    </form>
     </div>
 
     <!-- ✅ MAIN CONTENT -->
-    <div class="main-content">
+    <div class="main-content my-4">
         <h2 class="text-center">Dashboard Supplier</h2>
         <hr>
 

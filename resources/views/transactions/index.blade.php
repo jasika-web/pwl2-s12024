@@ -99,6 +99,11 @@
         <a href="{{ route('transactions.index') }}" class="active">Transaksi</a>
         <a href="{{ route('products.index') }}">Product</a>
         <a href="{{ route('categories.index') }}">Category Products</a>
+
+        <form action="{{ route('logout') }}" method="POST" class="w-100 mt-4">
+        @csrf
+        <button type="submit" class="btn btn-danger w-100">Logout</button>
+    </form>
     </div>
 
     <!-- ✅ MAIN CONTENT -->
